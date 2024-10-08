@@ -21,7 +21,18 @@ def fact_check(statement):
     except requests.exceptions.RequestException as e:
         return f"Error: Unable to connect to the API. {str(e)}"
 
-statement = input("Enter Statement:")
-print("Statement is: " + statement)     
-result = fact_check(statement)
-print(result)
+statement = input("Enter 1st Statement:")
+variation = ["past analysis ", "latest news ", "breaking news ", "recent report "]
+for x in variation:
+  result = (x + statement) ## < Adding variation to the front of the prompt
+  print(x + statement)
+  output = fact_check(result)
+  print(" ")
+  print(output)
+
+   ##try prompts : Tesla company
+
+## NLP needed to be inserted here
+## for checking similarity score here to check if the 
+## statements and results are relevant (match)
+
