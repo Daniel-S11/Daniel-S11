@@ -1,1 +1,27 @@
+import requests
+def fact_check(statement):
+    """
+    Checks the given statement using a fact-checking API.
+    """
+    api_url = "https://newsapi.org/v2/everything"  # Example: News API endpoint
+    params = {
+        "q": statement,  # Assuming 'q' is the query parameter for searching
+        "apiKey": "bd1cbbe35a9b4aa09cc288bd6d1cde5e"  # Replace with actual API key
+    }
+    try:
+        response = requests.get(api_url, params=params)
+        if response.status_code == 200:
+            data = response.json()
+            if 'articles' in data and data['articles']:
+                return "Fact-check found: " + data['articles'][0]['title']
+            else:
+                return "No fact-check found for this statement."
+        else:
+            return f"Error: Received status code {response.status_code}"
+    except requests.exceptions.RequestException as e:
+        return f"Error: Unable to connect to the API. {str(e)}"
 
+statement = input("Enter Statement:")
+print("Statement is: " + statement)     
+result = fact_check(statement)
+print(result)
